@@ -1,0 +1,56 @@
+<html>
+
+<body>
+
+
+<button>
+    <a href="{{ path('contacts_all') }}">Back to contacts</a>
+</button>
+
+
+<button>
+    <a href="{{ path('contact_update', {id: contact_id}) }}">Edit this contact</a>
+</button>
+
+<table class="table">
+
+    <tr>
+        <td><strong>#</strong></td>
+        <td>{{ contact_id }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Name: </strong></td>
+        <td>{{ contact_name }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Secondname: </strong></td>
+        <td>{{ contact_secondname }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Phone: </strong></td>
+        <td>{{ contact_phone }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Email: </strong></td>
+        <td>{{ contact_email }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Note: </strong></td>
+        <td>{{ contact_note }}</td>
+    </tr>
+
+</table>
+
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,22 @@
+# config/routes.yaml
+
+contacts_all:
+  path: /
+  controller: App\Controller\ContactControllerPhpController::index
+
+contact_create:
+  path: /contact/new
+  controller: App\Controller\ContactControllerPhpController::new
+
+contact_detail:
+  path: /contact/{id}
+  controller: App\Controller\ContactControllerPhpController::detail
+
+contact_update:
+  path: /contacts/update/{id}
+  controller: App\Controller\ContactControllerPhpController::update
+
+contact_remove:
+  path: /contact/delete/{id}
+  controller: App\Controller\ContactControllerPhpController::remove
+
