@@ -1,0 +1,86 @@
+<html>
+
+<body>
+
+
+{#{{ component('alert', { type: messagetype , message:  message  }) }}#}
+
+
+
+<button>
+    <a href="{{ path('contact_create') }}" target="_blank">Create new contact</a>
+</button>
+
+
+<table class="table table-dark">
+    <tr>
+
+        <th scope="col"><strong>#</strong></th>
+        <th scope="col"><strong>jméno</strong></th>
+        <th scope="col"><strong>přijmení</strong></th>
+        <th scope="col"><strong>telefon</strong></th>
+        <th scope="col"><strong>email</strong></th>
+        <th scope="col"><strong>poznámka</strong></th>
+        <th scope="col" colspan="2"></th>
+
+    </tr>
+
+    {% for contact in contacts %}
+
+        <tr>
+
+            <td scope="row">{{ contact.id }}</td>
+            <td scope="row"><a href="{{ path('contact_detail', {id: contact.id}) }}">{{ contact.name }}</a></td>
+            <td scope="row"><a href="{{ path('contact_detail', {id: contact.id}) }}">{{ contact.secondname }}</a></td>
+            <td scope="row">{{ contact.phone }}</td>
+            <td scope="row">{{ contact.email }}</td>
+            <td scope="row" class="note-poup-btn" id="note-popup-{{ contact.id }}">show note <div style="display:none;" scope="row">{{ contact.note }}</div></td>
+
+
+            <td scope="row"><a href="{{ path('contact_remove', {id: contact.id}) }}">remove</a></td>
+            <td scope="row"><a href="{{ path('contact_update', {id: contact.id}) }}">edit</a></td>
+
+        </tr>
+
+    {% endfor %}
+
+
+</table>
+
+
+</body>
+</html>
+
+<style>
+
+    .note-poup-btn:hover{
+        cursor:pointer;
+    }
+
+</style>
+
+
+<script>
+
+    let popupLinks = document.querySelectorAll('.note-poup-btn');
+
+    Array.from(popupLinks).forEach(link => {
+        link.addEventListener('click', function(event) {
+            console.log(event.target.children[0].style);
+            alert(event.target.children[0].innerHTML);
+            // TODO: add style for this & exit btn possibly
+           /* if(event.target.children[0].style.display == "block"){
+                event.target.children[0].style.display = "none";
+            }else{
+                event.target.children[0].style.display = "block";
+            }*/
+
+        });
+    });
+
+</script>
+
+
+
+
+
