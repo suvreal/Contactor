@@ -10,14 +10,19 @@ A PHP application for your contact management.
 ## Usage (CLI commands):
 1. have installed composer and php in your system
 2. clone this repository
-2. start symfony server in the background: 
+3. install dependencies: 
+    ```sh
+    composer install
+    ```
+4. start symfony server in the background: 
     ```sh
     symfony server:start -d
     ```
-3. start encore server 
+5. start encore server 
     ```sh
     yarn encore dev-server
     ```
+
 ## Modules to install (list of commands)
 ```sh
 composer require annotations
@@ -35,6 +40,7 @@ composer require symfony/webpack-encore-bundle
 	yarn install
 	yarn encore dev-server
 composer require knplabs/knp-paginator-bundle:* -W
+and possibly composer require symfony-cmf/routing-bundle:* -W
 ```
 
 ## Routes
