@@ -10,7 +10,7 @@ A PHP application for your contact management.
 ## Usage (CLI commands):
 1. have installed composer and php in your system
 2. clone this repository
-3. import database (contacts.sql) exposed on port 3366
+3. import database (contacts.sql) exposed on port 3306
 4. install dependencies: 
     ```sh
     composer install
