@@ -10,17 +10,19 @@ A PHP application for your contact management.
 ## Usage (CLI commands):
 1. have installed composer and php in your system
 2. clone this repository
-3. install dependencies: 
+3. import database (contacts.sql) exposed on port 3366
+4. install dependencies: 
     ```sh
     composer install
+    yarn install
     ```
-4. start symfony server in the background: 
+5. start symfony server in the background: 
     ```sh
     symfony server:start -d
     ```
-5. start encore server 
+6. start encore server 
     ```sh
-    yarn encore dev-server
+    yarn watch
     ```
 
 ## Modules to install (list of commands)
