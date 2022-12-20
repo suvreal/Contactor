@@ -7,6 +7,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+    // .addExternals({ jquery: 'jQuery' })
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
@@ -71,6 +72,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+
 ;
 
 module.exports = Encore.getWebpackConfig();

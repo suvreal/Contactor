@@ -1,16 +1,15 @@
-<html>
+{% extends 'base.html.twig' %}
 
-<body>
+
 
 
 {#{{ component('alert', { type: messagetype , message:  message  }) }}#}
 
-
+{% block body %}
 
 <button>
     <a href="{{ path('contact_create') }}" target="_blank">Create new contact</a>
 </button>
-
 
 <table class="table table-dark">
     <tr>
@@ -34,8 +33,15 @@
             <td scope="row"><a href="{{ path('contact_detail', {id: contact.id}) }}">{{ contact.secondname }}</a></td>
             <td scope="row">{{ contact.phone }}</td>
             <td scope="row">{{ contact.email }}</td>
-            <td scope="row" class="note-poup-btn" id="note-popup-{{ contact.id }}">show note <div style="display:none;" scope="row">{{ contact.note }}</div></td>
-
+            <td scope="row" class="note-popup-btn" id="note-popup-{{ contact.id }}">
+                show note
+                <div id="myModal-{{ contact.id }}" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>{{ contact.note }}</p>
+                    </div>
+                </div>
+            </td>
 
             <td scope="row"><a href="{{ path('contact_remove', {id: contact.id}) }}">remove</a></td>
             <td scope="row"><a href="{{ path('contact_update', {id: contact.id}) }}">edit</a></td>
@@ -44,41 +50,20 @@
 
     {% endfor %}
 
-
 </table>
 
+<div class="navigation">
+    {{ knp_pagination_render(contacts) }}
+</div>
 
-</body>
-</html>
-
-<style>
-
-    .note-poup-btn:hover{
-        cursor:pointer;
-    }
-
-</style>
+{% endblock %}
 
 
-<script>
 
-    let popupLinks = document.querySelectorAll('.note-poup-btn');
 
-    Array.from(popupLinks).forEach(link => {
-        link.addEventListener('click', function(event) {
-            console.log(event.target.children[0].style);
-            alert(event.target.children[0].innerHTML);
-            // TODO: add style for this & exit btn possibly
-           /* if(event.target.children[0].style.display == "block"){
-                event.target.children[0].style.display = "none";
-            }else{
-                event.target.children[0].style.display = "block";
-            }*/
 
-        });
-    });
 
-</script>
+
 
 
 

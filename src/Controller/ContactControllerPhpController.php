@@ -7,6 +7,7 @@ use App\Form\Type\ContactNew;
 use App\Form\Type\ContactUpdate;
 use App\Repository\ContactRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,22 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 class ContactControllerPhpController extends AbstractController
 {
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
     {
 
-        $contact = $doctrine->getRepository(Contact::class);
-        $contact = $contact->findAll();
+        $contacts = $doctrine->getRepository(Contact::class);
+        $contacts = $contacts->findAll();
+
+        $allContacts = $paginator->paginate(
+            $contacts,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+
 
         return $this->render('contact_controller_php/index.html.twig',
-            ['contacts' => $contact]
+            ['contacts' => $allContacts]
         );
 
     }
