@@ -5,7 +5,11 @@
 
 
     <meta charset="UTF-8">
-    <title>{% block title %}Contactor{% endblock %}</title>
+    <title>
+        {% block title %}
+            {% if page_title is defined %} {{ page_title }} | Contactor App {% else %} Contactor App {% endif %}
+        {% endblock %}
+    </title>
 
 
     {% block stylesheets %}

@@ -17,11 +17,15 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 class ContactControllerPhpController extends AbstractController
 {
-    public function index(ManagerRegistry $doctrine, Request $request, PaginatorInterface $paginator): Response
+    public function index(
+        ManagerRegistry $doctrine,
+        Request $request,
+        PaginatorInterface $paginator,
+        FormFactoryInterface $formFactory
+    ): Response
     {
 
-        $contacts = $doctrine->getRepository(Contact::class);
-        $contacts = $contacts->findAll();
+        $contacts = $doctrine->getRepository(Contact::class)->findAll();
 
         $allContacts = $paginator->paginate(
             $contacts,
@@ -29,12 +33,38 @@ class ContactControllerPhpController extends AbstractController
             5
         );
 
-
-
-        return $this->render('contact_controller_php/index.html.twig',
-            ['contacts' => $allContacts]
+        return $this->render(
+            'contact_controller_php/index.html.twig',
+            [
+                'contacts' => $allContacts,
+                'search' => False
+            ]
         );
 
+    }
+
+    public function search(
+        ManagerRegistry $doctrine,
+        Request $request,
+        PaginatorInterface $paginator,
+        string $search_string): Response
+    {
+        $contacts = $doctrine->getRepository(Contact::class)->findByExampleField($search_string);
+
+        $allContacts = $paginator->paginate(
+            $contacts,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        return $this->render(
+            'contact_controller_php/index.html.twig',
+            [
+                'contacts' => $allContacts,
+                'search' => True,
+                'searchedTerm' => $search_string
+            ]
+        );
     }
 
     public function remove(ManagerRegistry $doctrine, Contact $contact): Response
@@ -101,16 +131,31 @@ class ContactControllerPhpController extends AbstractController
 
     }
 
+    public function updateFromID(
+        ContactRepository $contactRepositoryRepository,
+        FormFactoryInterface $formFactory,
+        Request $request,
+        int $id): Response
+    {
+
+        $contactDataReceived = $contactRepositoryRepository->find($id);
+        $processedName = $contactDataReceived->processNameUrl();
+        return $this->redirectToRoute('contact_update_slug', array("slug"=>$id."-".$processedName));
+
+    }
+
     public function update(
         ValidatorInterface $validator,
         ManagerRegistry $doctrine,
-        int $id,
+        string $slug,
         ContactRepository $contactRepositoryRepository,
         FormFactoryInterface $formFactory,
         Request $request): Response
     {
 
-        $contactDataReceived = $contactRepositoryRepository->find($id);
+        if(str_contains($slug, '-') && ($id = explode("-", $slug)[0])){
+            $contactDataReceived = $contactRepositoryRepository->find($id);
+        }
 
         $contact = new Contact();
         $contact->setName($contactDataReceived->getName());
@@ -151,8 +196,18 @@ class ContactControllerPhpController extends AbstractController
 
         return $this->renderForm('contact_controller_php/update.html.twig', [
             'form' => $form,
+            'contact_id' => $contactDataReceived->getId(),
+            'contact_name' => $contactDataReceived->getName(),
         ]);
 
     }
+
+    public function processStringUrl(string $str): string
+    {
+        return str_replace("", "-", mb_strtolower(strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY')));
+    }
+
+
+
 
 }

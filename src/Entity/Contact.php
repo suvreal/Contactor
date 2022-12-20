@@ -93,4 +93,9 @@ class Contact
 
         return $this;
     }
+
+    public function processNameUrl(): ?string
+    {
+        return str_replace("", "-", mb_strtolower(strtr(utf8_decode($this->getName()), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY')));
+    }
 }

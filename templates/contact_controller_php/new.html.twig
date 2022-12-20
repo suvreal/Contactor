@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% set page_title = 'New Contact' %}
 
 {% block body %}
-<button>
-    <a href="{{ path('contacts_all') }}">Back to contacts</a>
-</button>
 
+<section>
 
-{{ form(form) }}
+    <button>
+        <a href="{{ path('contacts_all') }}">Back to contacts</a>
+    </button>
+
+    {{ form(form) }}
+
+</section>
 
 {% endblock %}
 

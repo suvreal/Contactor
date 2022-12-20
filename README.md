@@ -52,19 +52,23 @@ composer require knplabs/knp-paginator-bundle:* -W
 
 - contact_update:
   path: /contacts/update/{id}
+  controller: App\Controller\ContactControllerPhpController::updateFromID
+
+- contact_update_slug:
+  path: /{slug}
   controller: App\Controller\ContactControllerPhpController::update
 
 - contact_remove:
   path: /contact/delete/{id}
   controller: App\Controller\ContactControllerPhpController::remove
 
-## Future development
-- full ENCORE support: jQuery, Bootstrap
-- friendly UI
-- images
-- filters & search
-- browser responsivity and optimization 
-- Symfony 6.x support
+- contact_search:
+  path: /contact/search/{search_string}
+  controller: App\Controller\ContactControllerPhpController::search
 
-## Author
-SVRL
+## Future development
+- friendly UI
+- contacts images
+- advanced filters according to multiple attributes
+- browser responsivity and optimization of UI
+- dynamic routing by contact name

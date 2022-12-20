@@ -13,6 +13,55 @@ body {
 }
 
 
+/*Generals*/
+section{
+    width: 80%;
+    display: block;
+    margin: auto;
+    min-height: 500px;
+}
+
+table{
+    width: 100%;
+}
+
+table tr{
+    padding: 5px;
+}
+
+table tr:hover{
+    background-color:#dfdfdf;
+}
+
+table th, td{
+    padding: 5px;
+}
+
+form{
+    display:table;
+    margin:auto;
+    width: 100%;
+}
+
+form div div{
+    display:table-row;
+    width: 100%;
+}
+
+form div div label,
+form div div input,
+form div div button{
+    display:table-cell;
+}
+
+form,
+form div div,
+form div div label,
+form div div input,
+form div div button{
+    padding: 5px;
+}
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -30,7 +79,7 @@ body {
 
 /* Modal Content/Box */
 .modal-content {
-      background-color: #fefefe;
+    /*background-color: #fefefe;*/
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -50,6 +99,6 @@ body {
 .close:hover,
 .close:focus {
     color: black;
-      text-decoration: none;
-      cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
 }
